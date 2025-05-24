@@ -1,0 +1,65 @@
+.Login-form {
+  width: 25vw;
+  min-width: 200px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.remember {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  margin-bottom: 15px;
+}
+
+.forgot_password {
+  text-decoration: none;
+  color: black;
+}
+
+.forgot_password:hover {
+  color: #1877f2;
+  text-decoration: underline;
+}
+
+.login-btn {
+  background-color: #1877f2;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.register-link {
+  text-align: center;
+  font-size: 14px;
+}
+
+.register-link a {
+  text-decoration: none;
+  color: black;
+}
+
+.register-link a:hover {
+  color: #1877f2;
+  text-decoration: underline;
+}

@@ -1,0 +1,76 @@
+//@import 'bootstrap';
+//@import 'fonts';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+$bg-dark: #292929;
+
+body {
+  font-family: "Montserrat";
+  font-weight: 400;
+
+  a {
+    color: #000;
+    text-decoration: none;
+    transition: .1s ease;
+
+    &:hover {
+      //border-bottom-style: solid;
+    }
+  }
+}
+
+.top-menu {
+  background: $bg-dark;
+
+  a {
+    color: #fff;
+    font-size: 14px;
+    transition: .1s ease;
+
+    &:hover {
+      color: #fff;
+      opacity: .6;
+    }
+  }
+}
+
+.form-control {
+  border: 2px solid rgba($bg-dark, 10%);
+  font-size: 15px;
+}
+
+.card {
+  &-header {
+
+  }
+}
+
+.offer-item-list {
+  padding: 15px;
+  border: 2px solid rgba($bg-dark, 10%);
+  border-radius: 4px;
+  transition: .1s ease;
+
+  h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    height: 53px;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .arrow-right {
+    margin-right: 10px;
+    transition: .1s ease;
+  }
+
+  &:hover {
+    border: 2px solid rgba($bg-dark, 20%);
+    //transform: translate(-2px, -2px);
+
+    .arrow-right {
+      margin-right: 5px;
+    }
+  }
+}

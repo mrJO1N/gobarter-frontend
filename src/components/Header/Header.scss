@@ -1,0 +1,50 @@
+$black: #1e1e1e;
+$white: #fff;
+
+$bg: $black;
+
+header {
+  background-color: $bg;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 20px;
+  font-size: 13px;
+
+  * {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .link {
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+    margin-right: 15px;
+    padding-bottom: 0;
+    display: inline-block;
+
+    font-size: 0.9rem;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .logo {
+    font-size: 26px;
+    font-weight: bold;
+    text-decoration: none;
+    color: $white;
+  }
+
+  .search {
+    padding: 6px 12px;
+    font-size: 1rem;
+    width: 30vw;
+    min-width: 240px;
+
+    height: 36px;
+    border-radius: 5px;
+  }
+}
