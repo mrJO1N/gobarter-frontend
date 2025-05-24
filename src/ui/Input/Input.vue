@@ -1,5 +1,5 @@
 <template>
-  <input class="Input" :class="visibilityType" :elementType />
+  <input class="Input" :class="visibilityType" :type="visibilityType" />
 </template>
 
 <script lang="ts" setup>
@@ -17,6 +17,7 @@ switch (visibilityType) {
   case "email":
   case "password":
   case "text":
+  case "checkbox":
     elementType = visibilityType;
     break;
 }

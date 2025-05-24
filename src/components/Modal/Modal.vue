@@ -4,7 +4,7 @@
       <div class="content-container" @click.stop="">
         <button class="close-btn" @click="closeModal">X</button>
         <div class="content">
-          <component :is="currentComponent" :key="viewType" />
+          <component :is="currentComponent" :key="viewType" :openModal />
         </div>
       </div>
     </div>

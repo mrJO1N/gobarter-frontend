@@ -13,12 +13,11 @@
 
     <div class="remember">
       <label><Input visibility-type="checkbox" checked /> Запомнить меня</label>
-      <a class="forgot_password" href="#">Забыли пароль?</a>
     </div>
 
     <button class="login-btn">Войти</button>
-    <div class="register-link">
-      <a href="#">Регистрация профиля</a>
+    <div class="reg-link-container">
+      <a @click="openModal('reg')" class="reg-link"> Регистрация профиля </a>
     </div>
   </div>
 </template>
@@ -26,9 +25,12 @@
 <script lang="ts" setup>
 import Input from "@ui/Input";
 import "./Login.scss";
+import type { types } from "@comp/Modal";
 
-interface IProps {}
-defineProps<IProps>();
+interface IProps {
+  openModal: types.IModalInstance["openModal"];
+}
+const { openModal } = defineProps<IProps>();
 </script>
 
 <style lang="sass" scoped></style>
