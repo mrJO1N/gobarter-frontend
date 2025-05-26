@@ -6,7 +6,7 @@
       <RouterLink to="/about" class="link">О нас</RouterLink>
     </div>
     <Input
-      visibility-type="text"
+      visibility-type="search"
       class="search"
       placeholder="Поиск по объявлениям..."
     />
