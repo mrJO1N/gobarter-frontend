@@ -16,7 +16,8 @@ import { ref, defineExpose, computed } from "vue";
 import "./Modal.scss";
 
 import Login from "./views/Login";
-import Reg from "./views/Reg/Reg.vue";
+import Reg from "./views/Reg";
+import Verification from "./views/Verification";
 import type { TModalViewType } from "./types";
 
 interface IProps {}
@@ -25,9 +26,16 @@ defineProps<IProps>();
 let isOpened = ref(false);
 let viewType = ref<TModalViewType>("login");
 
-const currentComponent = computed(() =>
-  viewType.value === "login" ? Login : Reg
-);
+const currentComponent = computed(() => {
+  switch (viewType.value) {
+    case "login":
+      return Login;
+    case "reg":
+      return Reg;
+    case "verification":
+      return Verification;
+  }
+});
 
 const closeModal = () => {
   isOpened.value = false;
