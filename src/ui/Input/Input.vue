@@ -36,6 +36,7 @@ switch (visibilityType) {
     min-width: 240px;
 
     height: 36px;
+
     border-radius: 5px;
   }
 
