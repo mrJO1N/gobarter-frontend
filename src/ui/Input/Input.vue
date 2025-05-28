@@ -5,7 +5,7 @@
 <script lang="ts" setup>
 import type { InputTypeHTMLAttribute } from "vue";
 
-type TVisibilityType = "email" | "password" | "checkbox" | "search";
+type TVisibilityType = "email" | "password" | "checkbox" | "text";
 interface IProps {
   visibilityType: TVisibilityType;
 }
@@ -16,20 +16,16 @@ let elementType: InputTypeHTMLAttribute = "";
 switch (visibilityType) {
   case "email":
   case "password":
+  case "text":
   case "checkbox":
     elementType = visibilityType;
-    break;
-  case "search":
-    elementType = "text";
     break;
 }
 </script>
 
 <style lang="scss" scoped>
 .Input {
-  &.password,
-  &.email,
-  &search {
+  &.text {
     padding: 6px 12px;
     font-size: 1rem;
     width: 30vw;
@@ -37,10 +33,6 @@ switch (visibilityType) {
 
     height: 36px;
     border-radius: 5px;
-  }
-
-  &.checkbox {
-    transform: scale(1.4);
   }
 }
 </style>
