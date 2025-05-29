@@ -1,3 +1,5 @@
+$black: #1e1e1e;
+
 .Modal {
   .background {
     position: absolute;
@@ -23,7 +25,7 @@
         padding: 20px;
         cursor: pointer;
         font-weight: bold;
-        color: #4aae9b;
+        color: $black;
         background: transparent;
         user-select: none;
 
