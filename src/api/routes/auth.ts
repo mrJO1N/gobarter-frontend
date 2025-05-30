@@ -13,9 +13,19 @@ interface ITokesRes {
 }
 
 class AuthApi extends BaseApi {
+  constructor() {
+    super();
+    this.handleError = this.handleError.bind(this);
+    this.login = this.login.bind(this);
+    this.register = this.register.bind(this);
+  }
+
   async login(payload: ILoginPayload) {
     try {
-      const res = await this.axiosInstance.post("/user/login", payload);
+      const res = await this.axiosInstance.post<ITokesRes>(
+        "/user/login",
+        payload
+      );
       this.setTokens(res.data);
       return res.data;
     } catch (error) {

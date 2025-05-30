@@ -4,7 +4,12 @@
       <div class="content-container" @click.stop="">
         <button class="close-btn" @click="closeModal">X</button>
         <div class="content">
-          <component :is="currentComponent" :key="viewType" :openModal />
+          <component
+            :is="currentComponent"
+            :key="viewType"
+            :openModal
+            :closeModal
+          />
         </div>
       </div>
     </div>
@@ -38,5 +43,5 @@ const openModal = (type: TModalViewType) => {
   viewType.value = type;
 };
 
-defineExpose({ openModal });
+defineExpose({ openModal, closeModal });
 </script>

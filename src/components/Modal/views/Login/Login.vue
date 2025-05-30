@@ -16,12 +16,6 @@
         v-model="password"
         label="пароль"
       />
-
-      <Input
-        visibility-type="checkbox"
-        v-model="rememberMe"
-        label="Запомнить меня"
-      />
     </div>
 
     <button class="login-btn" @click="send">Войти</button>
@@ -32,23 +26,32 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 import "./Login.scss";
 import Input from "@ui/Input";
 import type { types } from "@comp/Modal";
-import { authApi } from "@/api/routes/auth";
+import { api } from "@/api/main";
 
 interface IProps {
   openModal: types.IModalInstance["openModal"];
+  closeModal: types.IModalInstance["closeModal"];
 }
-const { openModal } = defineProps<IProps>();
+const { openModal, closeModal } = defineProps<IProps>();
 
 const email = ref("");
 const password = ref("");
-const rememberMe = ref(true);
 
-const send = () => {
-  authApi.login({ email: email.value, password: password.value });
+const send = async () => {
+  const { data, isLoading } = api.auth.login({
+    email: email.value,
+    password: password.value,
+  });
+
+  setInterval(() => {
+    console.log(data.value, isLoading.value);
+  }, 500);
+
+  watch([data], closeModal);
 };
 </script>
