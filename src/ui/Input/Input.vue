@@ -3,6 +3,7 @@
     <label v-if="inputType !== 'checkbox'">
       {{ label ?? "" }}
     </label>
+    <!-- the end of component has label for checkbox  -->
 
     <input
       :type="inputType"
@@ -45,7 +46,7 @@ export default defineComponent({
   },
   computed: {
     inputType(): string {
-      return this.visibilityType === "search" ? "text" : this.visibilityType;
+      return this.visibilityType;
     },
     isChecked(): boolean {
       return this.visibilityType === "checkbox"

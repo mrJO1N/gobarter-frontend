@@ -24,7 +24,7 @@
       />
     </div>
 
-    <button class="login-btn" @click="show">Войти</button>
+    <button class="login-btn" @click="send">Войти</button>
     <div class="reg-link-container">
       <a @click="openModal('reg')" class="reg-link"> Регистрация профиля </a>
     </div>
@@ -32,10 +32,12 @@
 </template>
 
 <script lang="ts" setup>
-import Input from "@ui/Input";
-import "./Login.scss";
-import type { types } from "@comp/Modal";
 import { ref } from "vue";
+
+import "./Login.scss";
+import Input from "@ui/Input";
+import type { types } from "@comp/Modal";
+import { authApi } from "@/api/routes/auth";
 
 interface IProps {
   openModal: types.IModalInstance["openModal"];
@@ -46,5 +48,7 @@ const email = ref("");
 const password = ref("");
 const rememberMe = ref(true);
 
-const show = () => console.log(email.value, password.value, rememberMe.value);
+const send = () => {
+  authApi.login({ email: email.value, password: password.value });
+};
 </script>

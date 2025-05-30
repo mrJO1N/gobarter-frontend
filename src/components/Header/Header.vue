@@ -9,6 +9,7 @@
       visibility-type="search"
       class="search"
       placeholder="Поиск по объявлениям..."
+      v-model="searchText"
     />
 
     <div class="auth-links">
@@ -25,10 +26,12 @@ import { RouterLink } from "vue-router";
 import "./Header.scss";
 import { types } from "@comp/Modal";
 import Input from "@ui/Input";
+import { ref } from "vue";
 
 interface IProps {
   openModal: types.IModalInstance["openModal"];
 }
-
 defineProps<IProps>();
+
+const searchText = ref("");
 </script>
