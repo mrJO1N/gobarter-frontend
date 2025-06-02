@@ -22,6 +22,7 @@
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
 
+
 type VisibilityType = "password" | "email" | "search" | "checkbox";
 
 export default defineComponent({
@@ -69,10 +70,12 @@ export default defineComponent({
     },
   },
 });
+
 </script>
 
 <style lang="scss">
 .Input {
+
   font-size: 1rem;
 
   height: 36px;
@@ -92,10 +95,12 @@ export default defineComponent({
       border-radius: 5px;
     }
 
+
     label {
       margin-bottom: 5px;
     }
   }
+
 
   &.checkbox {
     input {
@@ -107,5 +112,6 @@ export default defineComponent({
       margin-left: 5px;
     }
   }
+
 }
 </style>
