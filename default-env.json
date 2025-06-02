@@ -1,0 +1,8 @@
+{
+  "comment": [
+    "this file will be not used in prod or dev",
+    "create 'env.json'",
+    "in the root to setup config"
+  ],
+  "BASE_URL": "http://site.ru/api"
+}
