@@ -1,7 +1,6 @@
 ### logic
 
 - login modal: add alert when has error
-- add const.scss file
 
 ### markup:
 

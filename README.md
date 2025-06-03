@@ -1,5 +1,28 @@
-# Vue 3 + TypeScript + Vite
+# what is it?
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+frontend for site gobarter.ru
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+### install
+
+for install this project you must have Node.js,
+install it on ubuntu:
+
+```sh
+pkg install nvm
+nvm install 22
+```
+
+install project:
+
+```sh
+git clone https://github.com/mrJO1N/gobarter-frontend/
+cd gobarter-frontend
+yarn
+```
+
+### launch
+
+```sh
+yarn build
+yarn preview
+```
