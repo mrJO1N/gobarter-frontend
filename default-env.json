@@ -4,5 +4,6 @@
     "create 'env.json'",
     "in the root to setup config"
   ],
-  "BASE_URL": "http://site.ru/api"
+  "BASE_URL": "http://site.ru/api",
+  "OFFER_ITEM_MAX_DESC_LEN": 0
 }

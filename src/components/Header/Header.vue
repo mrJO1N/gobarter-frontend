@@ -2,11 +2,13 @@
   <header>
     <div class="topbar-left">
       <RouterLink to="/" class="logo link">GoBarter</RouterLink>
-      <RouterLink to="/" class="link">Разместить объявление</RouterLink>
+      <span class="link" @click="openModal('create post')"
+        >Разместить объявление</span
+      >
       <RouterLink to="/about" class="link">О нас</RouterLink>
     </div>
     <Input
-      visibility-type="text"
+      visibility-type="search"
       class="search"
       placeholder="Поиск по объявлениям..."
       v-model="searchText"

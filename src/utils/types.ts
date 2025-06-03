@@ -1,6 +1,7 @@
 export interface IOffer {
+  id: number;
   title: string;
   description: string;
-  userWant: string;
-  userGive: string;
+  offer: string;
+  need: string;
 }

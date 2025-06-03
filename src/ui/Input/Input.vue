@@ -1,6 +1,6 @@
 <template>
   <div class="Input" :class="inputType">
-    <label v-if="inputType !== 'checkbox'">
+    <label v-if="isTextInput">
       {{ label ?? "" }}
     </label>
     <!-- the end of component has label for checkbox  -->
@@ -11,9 +11,16 @@
       :checked="isChecked"
       @input="updateValue"
       @change="updateChecked"
+      v-show="visibilityType !== 'code'"
+    />
+    <MaskInput
+      mask="##-##-##"
+      @input="updateValue"
+      placeholder="код"
+      v-show="visibilityType === 'code'"
     />
 
-    <label v-if="inputType === 'checkbox'">
+    <label v-if="!isTextInput">
       {{ label ?? "" }}
     </label>
   </div>
@@ -21,9 +28,15 @@
 
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
+import { MaskInput } from "vue-3-mask";
 
-
-type VisibilityType = "password" | "email" | "search" | "checkbox";
+type VisibilityType =
+  | "password"
+  | "email"
+  | "search"
+  | "checkbox"
+  | "text"
+  | "code";
 
 export default defineComponent({
   name: "Input",
@@ -46,6 +59,9 @@ export default defineComponent({
     },
   },
   computed: {
+    isTextInput(): boolean {
+      return !["checkbox"].includes(this.visibilityType);
+    },
     inputType(): string {
       return this.visibilityType;
     },
@@ -69,13 +85,13 @@ export default defineComponent({
       }
     },
   },
-});
 
+  components: { MaskInput },
+});
 </script>
 
 <style lang="scss">
 .Input {
-
   font-size: 1rem;
 
   height: 36px;
@@ -86,21 +102,22 @@ export default defineComponent({
 
   &.password,
   &.email,
-  &.search {
+  &.search,
+  &.text,
+  &.code {
     input {
       padding: 6px 12px;
       font-size: 1rem;
       width: 100%;
 
       border-radius: 5px;
+      border: 0.5px solid #6d6d6d;
     }
-
 
     label {
       margin-bottom: 5px;
     }
   }
-
 
   &.checkbox {
     input {
@@ -112,6 +129,5 @@ export default defineComponent({
       margin-left: 5px;
     }
   }
-
 }
 </style>

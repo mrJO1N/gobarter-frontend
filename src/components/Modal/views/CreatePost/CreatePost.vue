@@ -1,7 +1,7 @@
 <template>
   <div class="reg-form">
-    <h2>Регистрация</h2>
-
+    <h2>Разместить обявление</h2>
+    <h6>пока что заглушка</h6>
     <div class="form-inputs">
       <Input
         visibility-type="email"
@@ -44,7 +44,7 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 
-import "./Reg.scss";
+import "./CreatePost.scss";
 import type { types } from "@comp/Modal";
 import Input from "@ui/Input";
 import Button from "@ui/Button";

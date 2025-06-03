@@ -24,6 +24,7 @@ import Login from "./views/Login";
 import Reg from "./views/Reg";
 import Verification from "./views/Verification";
 import type { TModalViewType } from "./types";
+import CreatePost from "./views/CreatePost";
 
 interface IProps {}
 defineProps<IProps>();
@@ -39,6 +40,8 @@ const currentComponent = computed(() => {
       return Reg;
     case "verification":
       return Verification;
+    case "create post":
+      return CreatePost;
   }
 });
 

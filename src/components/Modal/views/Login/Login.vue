@@ -12,13 +12,13 @@
 
       <Input
         visibility-type="password"
-        placeholder="password"
+        placeholder="пароль"
         v-model="password"
         label="пароль"
       />
     </div>
 
-    <button class="login-btn" @click="send">Войти</button>
+    <Button @click="send">Вход</Button>
     <div class="reg-link-container">
       <a @click="openModal('reg')" class="reg-link"> Регистрация профиля </a>
     </div>
@@ -30,6 +30,7 @@ import { ref, watch } from "vue";
 
 import "./Login.scss";
 import Input from "@ui/Input";
+import Button from "@ui/Button";
 import type { types } from "@comp/Modal";
 import { api } from "@/api/main";
 
