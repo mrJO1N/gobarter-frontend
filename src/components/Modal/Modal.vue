@@ -18,12 +18,12 @@
 
 <script lang="ts" setup>
 import { ref, defineExpose, computed } from "vue";
-import "./Modal.scss";
 
+import "./Modal.scss";
+import type { TModalViewType } from "./types";
 import Login from "./views/Login";
 import Reg from "./views/Reg";
 import Verification from "./views/Verification";
-import type { TModalViewType } from "./types";
 import CreatePost from "./views/CreatePost";
 
 interface IProps {}

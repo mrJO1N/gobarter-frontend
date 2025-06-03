@@ -2,21 +2,9 @@
   <div class="Login-form">
     <h2>Верификация</h2>
 
-    <div class="form-inputs">
-      <Input
-        visibility-type="email"
-        placeholder="email"
-        v-model="email"
-        label="email"
-      />
-
-      <Input
-        visibility-type="code"
-        placeholder="код"
-        v-model="password"
-        label="код"
-      />
-    </div>
+    <form class="form-inputs" @submit="send" v-on:keyup.enter="send">
+      <Input visibility-type="code" placeholder="код" v-model="password" />
+    </form>
 
     <Button @click="send">Отправить</Button>
   </div>
@@ -37,6 +25,7 @@ interface IProps {
 }
 const { closeModal } = defineProps<IProps>();
 
+// TODO: take email from reg modal
 const email = ref("");
 const password = ref("");
 

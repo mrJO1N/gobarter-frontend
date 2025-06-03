@@ -45,9 +45,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@use "@/const";
+@use "sass:color";
+
 .Button {
   button {
-    background-color: #007bff;
+    background-color: const.$accent-color;
     color: #fff;
     padding: 3% 5%;
     border: none;
@@ -58,7 +61,7 @@ export default defineComponent({
     width: 100%; /* Занимает всю ширину */
 
     &:hover {
-      background-color: #0056b3;
+      background: color.mix(const.$main-color, const.$accent-color);
     }
   }
 }

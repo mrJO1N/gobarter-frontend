@@ -2,7 +2,7 @@
   <div class="reg-form">
     <h2>Разместить обявление</h2>
     <h6>пока что заглушка</h6>
-    <div class="form-inputs">
+    <form class="form-inputs" @submit="send" v-on:keyup.enter="send">
       <Input
         visibility-type="email"
         placeholder="email"
@@ -30,7 +30,7 @@
         v-model="password2"
         label="пароль"
       />
-    </div>
+    </form>
 
     <Button @click="send">регистрация</Button>
 

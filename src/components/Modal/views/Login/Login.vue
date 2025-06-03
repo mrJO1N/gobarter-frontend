@@ -1,8 +1,8 @@
 <template>
   <div class="Login-form">
-    <h2>Авторизация</h2>
+    <h2>Вход</h2>
 
-    <div class="form-inputs">
+    <form class="form-inputs" @submit="send" v-on:keyup.enter="send">
       <Input
         visibility-type="email"
         placeholder="email"
@@ -16,7 +16,7 @@
         v-model="password"
         label="пароль"
       />
-    </div>
+    </form>
 
     <Button @click="send">Вход</Button>
     <div class="reg-link-container">

@@ -1,3 +1,3 @@
-import offerList from "./offer-list.vue";
+import offerList from "./OfferList.vue";
 
 export default offerList;

@@ -1,4 +1,10 @@
+@use "@/const";
+
 * {
   margin: 0;
   padding: 0;
+}
+
+body {
+  background: const.$bg-color;
 }

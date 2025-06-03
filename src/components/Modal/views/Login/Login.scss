@@ -1,6 +1,12 @@
+@use "@/const";
+
 .Login-form {
   width: 25vw;
   min-width: 200px;
+
+  h2 {
+    color: const.$main-text-color;
+  }
 
   .forgot-password {
     cursor: pointer;
@@ -32,11 +38,11 @@
 
   .reg-link {
     font-size: 1rem;
-    color: black;
+    color: const.$main-text-color;
     text-decoration: none;
 
     &:hover {
-      color: #1877f2;
+      color: const.$accent-color;
       text-decoration: underline;
       cursor: pointer;
     }

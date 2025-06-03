@@ -14,7 +14,7 @@
 
 <script lang="ts" setup>
 import type { IOffer } from "@/utils/types";
-import OfferListItem from "@comp/Offer/offer-list-item.vue";
+import OfferListItem from "@comp/Offer/OfferListItem.vue";
 
 interface IProps {
   items: IOffer[];

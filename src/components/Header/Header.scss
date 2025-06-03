@@ -1,10 +1,7 @@
-$black: #1e1e1e;
-$white: #fff;
-
-$bg: $black;
+@use "@/const" as const;
 
 header {
-  background-color: $bg;
+  background-color: const.$main-color;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -18,7 +15,7 @@ header {
   }
   .link {
     cursor: pointer;
-    color: white;
+    color: const.$bg-color;
     text-decoration: none;
     margin-right: 15px;
     padding-bottom: 0;
@@ -35,7 +32,7 @@ header {
     font-size: 26px;
     font-weight: bold;
     text-decoration: none;
-    color: $white;
+    color: const.$bg-color;
   }
 
   .search {

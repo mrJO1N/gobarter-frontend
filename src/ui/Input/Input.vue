@@ -14,7 +14,7 @@
       v-show="visibilityType !== 'code'"
     />
     <MaskInput
-      mask="##-##-##"
+      mask="### ###"
       @input="updateValue"
       placeholder="код"
       v-show="visibilityType === 'code'"
@@ -91,13 +91,32 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@use "@/const";
+@use "sass:color";
+
 .Input {
   font-size: 1rem;
-
   height: 36px;
 
   label {
     font-size: 1rem;
+  }
+
+  input {
+    background: const.$bg-color;
+
+    &::placeholder {
+      color: color.mix(const.$main-text-color, const.$bg-color);
+    }
+
+    &:hover {
+      background: color.mix(const.$main-text-color, const.$bg-color, 5%);
+    }
+
+    &:focus {
+      background: color.mix(const.$main-text-color, const.$bg-color, 5%);
+      outline: 2px solid const.$accent-color;
+    }
   }
 
   &.password,

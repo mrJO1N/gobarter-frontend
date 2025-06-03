@@ -1,3 +1,5 @@
+@use "@/const";
+
 .reg-form {
   .form-inputs {
     display: flex;
@@ -11,7 +13,7 @@
   h2 {
     font-size: 1.75rem;
     margin-bottom: 1.5rem;
-    color: #333;
+    color: const.$main-text-color;
     text-align: center;
   }
 
@@ -19,14 +21,15 @@
     text-align: center;
     margin-top: 1rem;
     font-size: 0.85rem;
+    color: const.$main-text-color;
 
     .reg-link {
       font-size: 1rem;
-      color: black;
+      color: const.$main-text-color;
       text-decoration: none;
 
       &:hover {
-        color: #1877f2;
+        color: const.$accent-color;
         text-decoration: underline;
         cursor: pointer;
       }

@@ -7,9 +7,9 @@ export abstract class BaseApi {
 
   constructor() {
     this.axiosInstance = axios.create({
-      baseURL: config.get("BASE_URL") ?? "",
+      baseURL: String(config.get("BASE_URL")) ?? "",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
       },
     });
 

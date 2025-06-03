@@ -34,7 +34,12 @@ const cropStr = (str: string) => {
 </script>
 
 <style lang="scss" scoped>
+@use "@/const";
+
 .OfferListItem {
+  border: 3px solid const.$accent-color;
+  border-radius: 10px;
+  color: const.$accent-color;
   .need,
   .offer {
     margin-bottom: 0;

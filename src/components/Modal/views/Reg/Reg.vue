@@ -2,7 +2,7 @@
   <div class="reg-form">
     <h2>Регистрация</h2>
 
-    <div class="form-inputs">
+    <form class="form-inputs" @submit="send" v-on:keyup.enter="send">
       <Input
         visibility-type="email"
         placeholder="email"
@@ -21,16 +21,16 @@
         visibility-type="password"
         placeholder="пароль"
         v-model="password"
-        label="пароль"
+        label="Пароль"
       />
 
       <Input
         visibility-type="password"
         placeholder="пароль"
         v-model="password2"
-        label="пароль"
+        label="Повторите пароль"
       />
-    </div>
+    </form>
 
     <Button @click="send">регистрация</Button>
 
