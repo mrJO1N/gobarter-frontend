@@ -1,6 +1,8 @@
 <template>
   <div class="Login-form">
     <h2>Вход</h2>
+    <Alert visibilityType="error" v-show="error">{{ error }}</Alert>
+    <Loader v-show="isLoading" />
 
     <form class="form-inputs" @submit="send" v-on:keyup.enter="send">
       <Input
@@ -26,13 +28,15 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from "vue";
+import { onUnmounted, ref, watch } from "vue";
 
 import "./Login.scss";
 import Input from "@ui/Input";
 import Button from "@ui/Button";
+import Alert from "@ui/Alert";
 import type { types } from "@comp/Modal";
 import { api } from "@/api/main";
+import Loader from "@ui/Loader";
 
 interface IProps {
   openModal: types.IModalInstance["openModal"];
@@ -42,17 +46,30 @@ const { openModal, closeModal } = defineProps<IProps>();
 
 const email = ref("");
 const password = ref("");
+const error = ref<string>("");
+const isLoading = ref(false);
+
+onUnmounted(() => {
+  error.value = "";
+});
 
 const send = async () => {
-  const { data, isLoading } = api.auth.login({
+  isLoading.value = true;
+  const {
+    data,
+    error: apiError,
+    isLoading: innerIsLoading,
+  } = api.auth.login({
     email: email.value,
     password: password.value,
   });
 
-  setInterval(() => {
-    console.log(data.value, isLoading.value);
-  }, 500);
-
-  watch([data], closeModal);
+  watch(innerIsLoading, (newValue) => (isLoading.value = newValue));
+  watch(
+    apiError,
+    (newValue: Error | string | null) =>
+      (error.value = (newValue as Error)?.message ?? (newValue as string) ?? "")
+  );
+  watch(data, closeModal);
 };
 </script>

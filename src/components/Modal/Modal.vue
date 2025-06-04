@@ -9,6 +9,7 @@
             :key="viewType"
             :openModal
             :closeModal
+            :data="dataToModalContent"
           />
         </div>
       </div>
@@ -31,6 +32,7 @@ defineProps<IProps>();
 
 let isOpened = ref(false);
 let viewType = ref<TModalViewType>("login");
+let dataToModalContent: any = {};
 
 const currentComponent = computed(() => {
   switch (viewType.value) {
@@ -42,16 +44,21 @@ const currentComponent = computed(() => {
       return Verification;
     case "create post":
       return CreatePost;
+
+    case "empty modal":
+      return "";
   }
 });
 
 const closeModal = () => {
   isOpened.value = false;
+  viewType.value = "empty modal";
 };
 
-const openModal = (type: TModalViewType) => {
+const openModal = (type: TModalViewType, data?: any) => {
   isOpened.value = true;
   viewType.value = type;
+  dataToModalContent = data;
 };
 
 defineExpose({ openModal, closeModal });

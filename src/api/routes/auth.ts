@@ -5,7 +5,11 @@ interface ILoginPayload {
   password: string;
 }
 interface IRegPayload extends ILoginPayload {
-  username: string;
+  name: string;
+}
+interface IVerifyPayload {
+  email: string;
+  code: string;
 }
 interface ITokesRes {
   refresh_token: string;
@@ -18,6 +22,7 @@ class AuthApi extends BaseApi {
     this.handleError = this.handleError.bind(this);
     this.login = this.login.bind(this);
     this.register = this.register.bind(this);
+    this.verify = this.verify.bind(this);
   }
 
   async login(payload: ILoginPayload) {
@@ -35,8 +40,20 @@ class AuthApi extends BaseApi {
 
   async register(data: IRegPayload) {
     try {
-      const response = await this.axiosInstance.post("/user/register", data);
+      const response = await this.axiosInstance.post<ITokesRes>(
+        "/user/register",
+        data
+      );
       this.setTokens(response.data);
+      return response.data;
+    } catch (error) {
+      throw this.handleError(error);
+    }
+  }
+
+  async verify(data: IVerifyPayload) {
+    try {
+      const response = await this.axiosInstance.post("/user/verify", data);
       return response.data;
     } catch (error) {
       throw this.handleError(error);

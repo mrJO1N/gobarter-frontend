@@ -1,5 +1,5 @@
 import { config } from "@/utils/config";
-import type { AxiosInstance } from "axios";
+import type { AxiosError, AxiosInstance } from "axios";
 import axios from "axios";
 
 export abstract class BaseApi {
@@ -15,7 +15,7 @@ export abstract class BaseApi {
 
     this.axiosInstance.interceptors.request.use((config) => {
       const accessToken = localStorage.getItem("access_token");
-      if (accessToken) {
+      if (accessToken && !config.headers["Authorization"]) {
         config.headers["Authorization"] = `Bearer ${accessToken}`;
       }
       return config;
@@ -23,10 +23,22 @@ export abstract class BaseApi {
 
     this.axiosInstance.interceptors.response.use(
       (response) => response,
-      async (error) => {
-        const originalRequest = error.config;
-        if (error.response.status === 401 && !originalRequest._retry) {
+      async (error: AxiosError) => {
+        const originalRequest = error.config! as AxiosError["config"] & {
+          _retry: boolean;
+        };
+
+        const isThisReqMustNotHappenAgain =
+          originalRequest?.url?.includes("refresh") ||
+          originalRequest?.url?.includes("login");
+
+        if (
+          error.response?.status === 401 &&
+          !originalRequest._retry &&
+          !isThisReqMustNotHappenAgain
+        ) {
           originalRequest._retry = true;
+
           await this.refreshAccessToken();
           return this.axiosInstance(originalRequest);
         }
@@ -37,12 +49,17 @@ export abstract class BaseApi {
 
   private async refreshAccessToken() {
     const refreshToken = localStorage.getItem("refresh_token");
+    let isGoodResponse = true;
     if (refreshToken) {
-      const response = await this.axiosInstance.post("/auth/refresh", {
-        refresh_token: refreshToken,
+      const response = await this.axiosInstance.post("/user/refresh", null, {
+        headers: {
+          Authorization: `Bearer ${refreshToken}`,
+        },
       });
       localStorage.setItem("access_token", response.data.access_token);
     }
+
+    return isGoodResponse;
   }
 
   protected handleError(error: any) {
@@ -50,7 +67,7 @@ export abstract class BaseApi {
       // not 2xx
       return {
         status: error.response.status,
-        message: error.response.data.message || "Server error",
+        message: error.response.data.detail || "Server error",
       };
     } else if (error.request) {
       return {

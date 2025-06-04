@@ -1,7 +1,7 @@
 import { ref } from "vue";
 
 export function wrapUseFetch<Res = object, Req = object | undefined>(
-  func: (payload: Req) => Promise<Res>
+  fetchFunc: (payload: Req) => Promise<Res>
 ) {
   return (reqData: Req) => {
     const data = ref<Res | null>(null);
@@ -13,7 +13,7 @@ export function wrapUseFetch<Res = object, Req = object | undefined>(
       error.value = null;
 
       try {
-        const res = await func(reqData);
+        const res = await fetchFunc(reqData);
         data.value = res;
       } catch (err: any) {
         // 'cause it is any or unknown

@@ -2,6 +2,11 @@
   <div class="reg-form">
     <h2>Регистрация</h2>
 
+    <Alert visibilityType="error" v-show="errorMessage">{{
+      errorMessage
+    }}</Alert>
+    <Loader v-show="isLoading" />
+
     <form class="form-inputs" @submit="send" v-on:keyup.enter="send">
       <Input
         visibility-type="email"
@@ -42,12 +47,15 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { onUnmounted, ref, watch } from "vue";
 
 import "./Reg.scss";
 import type { types } from "@comp/Modal";
 import Input from "@ui/Input";
 import Button from "@ui/Button";
+import Loader from "@ui/Loader";
+import Alert from "@ui/Alert";
+import { api } from "@/api/main";
 
 interface IProps {
   openModal: types.IModalInstance["openModal"];
@@ -58,7 +66,39 @@ const email = ref("");
 const username = ref("");
 const password = ref("");
 const password2 = ref("");
+const errorMessage = ref<string>("");
+const isLoading = ref(false);
+
+onUnmounted(() => {
+  errorMessage.value = "";
+});
+
 const send = () => {
-  openModal("verification");
+  if (password.value !== password2.value) {
+    errorMessage.value = "пароли не совпадают";
+    return;
+  }
+
+  isLoading.value = true;
+  const {
+    data,
+    error: apiError,
+    isLoading: innerIsLoading,
+  } = api.auth.register({
+    email: email.value,
+    name: username.value,
+    password: password.value,
+  });
+
+  watch(innerIsLoading, (newValue) => (isLoading.value = newValue));
+  watch(
+    apiError,
+    (newValue: Error | string | null) =>
+      (errorMessage.value =
+        (newValue as Error)?.message ?? (newValue as string) ?? "")
+  );
+  watch(data, () => {
+    openModal("verification", { email: email.value });
+  });
 };
 </script>

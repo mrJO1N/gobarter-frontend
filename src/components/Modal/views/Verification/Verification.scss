@@ -1,0 +1,28 @@
+@use "@/const";
+
+.Verification-form {
+  width: 20vw;
+  height: 40vh;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  h2 {
+    color: const.$main-text-color;
+    text-align: center;
+  }
+
+  .forgot-password {
+    cursor: pointer;
+  }
+
+  .form-inputs {
+    display: flex;
+    flex-direction: column;
+
+    * {
+      margin-bottom: 40px;
+    }
+  }
+}

@@ -1,9 +1,16 @@
 <template>
-  <div class="Login-form">
+  <div class="Verification-form">
     <h2>Верификация</h2>
+    <Alert visibilityType="error" v-show="error">{{ error }}</Alert>
+    <Loader v-show="isLoading" />
 
     <form class="form-inputs" @submit="send" v-on:keyup.enter="send">
-      <Input visibility-type="code" placeholder="код" v-model="password" />
+      <Input
+        visibility-type="code"
+        placeholder="код"
+        v-model="code"
+        class="code-input"
+      />
     </form>
 
     <Button @click="send">Отправить</Button>
@@ -14,31 +21,45 @@
 import { ref, watch } from "vue";
 
 import "./Verification.scss";
+import { api } from "@/api/main";
 import Input from "@ui/Input";
 import Button from "@ui/Button";
 import type { types } from "@comp/Modal";
-import { api } from "@/api/main";
+import Loader from "@ui/Loader";
+import Alert from "@ui/Alert";
 
 interface IProps {
   openModal: types.IModalInstance["openModal"];
   closeModal: types.IModalInstance["closeModal"];
+  data?: {
+    email: string;
+  };
 }
-const { closeModal } = defineProps<IProps>();
+const { closeModal, data } = defineProps<IProps>();
 
-// TODO: take email from reg modal
-const email = ref("");
-const password = ref("");
+const email = data?.email;
+if (!email) throw "no email from reg modal to verif modal";
+
+const code = ref("");
+const error = ref<string>("");
+const isLoading = ref(false);
 
 const send = async () => {
-  const { data, isLoading } = api.auth.login({
-    email: email.value,
-    password: password.value,
+  const {
+    data,
+    isLoading: innerIsLoading,
+    error: apiError,
+  } = api.auth.verify({
+    email,
+    code: code.value.replace(/\s/g, "").slice(0, 6),
   });
 
-  setInterval(() => {
-    console.log(data.value, isLoading.value);
-  }, 500);
-
-  watch([data], closeModal);
+  watch(innerIsLoading, (newValue) => (isLoading.value = newValue));
+  watch(
+    apiError,
+    (newValue: Error | string | null) =>
+      (error.value = (newValue as Error)?.message ?? (newValue as string) ?? "")
+  );
+  watch(data, closeModal);
 };
 </script>
