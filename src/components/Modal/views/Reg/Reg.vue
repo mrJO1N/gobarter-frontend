@@ -56,6 +56,7 @@ import Button from "@ui/Button";
 import Loader from "@ui/Loader";
 import Alert from "@ui/Alert";
 import { api } from "@/api/main";
+import { z } from "zod";
 
 interface IProps {
   openModal: types.IModalInstance["openModal"];
@@ -74,21 +75,50 @@ onUnmounted(() => {
 });
 
 const send = () => {
-  if (password.value !== password2.value) {
-    errorMessage.value = "пароли не совпадают";
+  errorMessage.value = "";
+  const validate = () => {
+    if (password.value !== password2.value) {
+      errorMessage.value = "пароли не совпадают";
+      return;
+    }
+    const formFields = z.object({
+      email: z.string().email({ message: "невалидный email" }),
+      name: z
+        .string()
+        .min(3, { message: "мин длина никнейма - 3" })
+        .max(50, { message: "макс длина никнейма - 50" }),
+      password: z
+        .string()
+        .min(8, { message: "мин длина пароля - 8" })
+        .max(50, { message: "макс длина пароля - 50" }),
+    });
+
+    try {
+      return {
+        data: formFields.parse({
+          email: email.value,
+          name: username.value,
+          password: password.value,
+        }),
+      };
+    } catch (err: any) {
+      return { error: err as z.ZodError };
+    }
+  };
+
+  const { error: err, data: formFields } = validate();
+
+  if (err) {
+    errorMessage.value = err.issues[0].message;
     return;
-  }
+  } else if (!formFields) throw "no form fuilds";
 
   isLoading.value = true;
   const {
     data,
     error: apiError,
     isLoading: innerIsLoading,
-  } = api.auth.register({
-    email: email.value,
-    name: username.value,
-    password: password.value,
-  });
+  } = api.auth.register(formFields);
 
   watch(innerIsLoading, (newValue) => (isLoading.value = newValue));
   watch(

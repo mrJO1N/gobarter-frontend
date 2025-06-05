@@ -1,7 +1,9 @@
 <template>
   <div class="Verification-form">
     <h2>Верификация</h2>
-    <Alert visibilityType="error" v-show="error">{{ error }}</Alert>
+    <Alert visibilityType="error" v-show="errorMessage">{{
+      errorMessage
+    }}</Alert>
     <Loader v-show="isLoading" />
 
     <form class="form-inputs" @submit="send" v-on:keyup.enter="send">
@@ -41,10 +43,16 @@ const email = data?.email;
 if (!email) throw "no email from reg modal to verif modal";
 
 const code = ref("");
-const error = ref<string>("");
+const errorMessage = ref<string>("");
 const isLoading = ref(false);
 
 const send = async () => {
+  errorMessage.value = "";
+  if (!code.value) {
+    errorMessage.value = "введите код";
+    return;
+  }
+
   const {
     data,
     isLoading: innerIsLoading,
@@ -58,7 +66,8 @@ const send = async () => {
   watch(
     apiError,
     (newValue: Error | string | null) =>
-      (error.value = (newValue as Error)?.message ?? (newValue as string) ?? "")
+      (errorMessage.value =
+        (newValue as Error)?.message ?? (newValue as string) ?? "")
   );
   watch(data, closeModal);
 };
