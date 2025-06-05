@@ -7,12 +7,7 @@
     <Loader v-show="isLoading" />
 
     <form class="form-inputs" @submit="send" v-on:keyup.enter="send">
-      <Input
-        visibility-type="code"
-        placeholder="код"
-        v-model="code"
-        class="code-input"
-      />
+      <Input visibility-type="code" v-model="code" class="code-input" />
     </form>
 
     <Button @click="send">Отправить</Button>

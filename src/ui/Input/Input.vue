@@ -5,18 +5,26 @@
     </label>
     <!-- the end of component has label for checkbox  -->
 
+    <textarea
+      v-if="visibilityType === 'textarea'"
+      @input="updateValue"
+      :placeholder="placeholder"
+      class="input-element"
+    />
     <input
+      class="input-element"
       :type="inputType"
       :placeholder="placeholder"
       :checked="isChecked"
       @input="updateValue"
       @change="updateChecked"
-      v-show="visibilityType !== 'code'"
+      v-else-if="visibilityType !== 'code'"
     />
     <MaskInput
+      class="input-element"
       mask="### ###"
       @input="updateValue"
-      placeholder="код"
+      placeholder="Код"
       v-show="visibilityType === 'code'"
     />
 
@@ -36,7 +44,8 @@ type VisibilityType =
   | "search"
   | "checkbox"
   | "text"
-  | "code";
+  | "code"
+  | "textarea";
 
 export default defineComponent({
   name: "Input",
@@ -96,13 +105,13 @@ export default defineComponent({
 
 .Input {
   font-size: 1rem;
-  height: 36px;
+  margin-bottom: 10px;
 
   label {
     font-size: 1rem;
   }
 
-  input {
+  .input-element {
     background: const.$bg-color;
 
     &::placeholder {
@@ -123,11 +132,13 @@ export default defineComponent({
   &.email,
   &.search,
   &.text,
-  &.code {
-    input {
+  &.code,
+  &.textarea {
+    .input-element {
       padding: 6px 12px;
       font-size: 1rem;
       width: 100%;
+      height: 36px;
 
       border-radius: 5px;
       border: 0.5px solid #6d6d6d;
@@ -138,8 +149,15 @@ export default defineComponent({
     }
   }
 
+  &.textarea {
+    .input-element {
+      height: 12vh;
+      resize: none;
+    }
+  }
+
   &.checkbox {
-    input {
+    .input-element {
       width: auto;
       transform: scale(1.4);
     }

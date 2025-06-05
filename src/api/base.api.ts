@@ -65,9 +65,14 @@ export abstract class BaseApi {
   protected handleError(error: any) {
     if (error.response) {
       // not 2xx
+
+      let errorMessage = error.response.data.detail;
+      if (errorMessage === "Невалидный токен")
+        errorMessage = "войдите еще раз, пожалуйста";
+
       return {
         status: error.response.status,
-        message: error.response.data.detail || "Server error",
+        message: errorMessage || "Server error",
       };
     } else if (error.request) {
       return {

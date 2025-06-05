@@ -1,7 +1,10 @@
 export interface IOffer {
-  id: number;
   title: string;
   description: string;
   offer: string;
   need: string;
+}
+
+export interface IGettedOffer extends IOffer {
+  id: number;
 }

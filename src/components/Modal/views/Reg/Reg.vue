@@ -10,34 +10,34 @@
     <form class="form-inputs" @submit="send" v-on:keyup.enter="send">
       <Input
         visibility-type="email"
-        placeholder="email"
+        placeholder="E-mail"
         v-model="email"
-        label="email"
+        label="E-mail"
       />
 
       <Input
         visibility-type="text"
-        placeholder="никнейм"
+        placeholder="Имя пользователя"
         v-model="username"
-        label="никнейм"
+        label="Имя пользователя"
       />
 
       <Input
         visibility-type="password"
-        placeholder="пароль"
+        placeholder="Пароль"
         v-model="password"
         label="Пароль"
       />
 
       <Input
         visibility-type="password"
-        placeholder="пароль"
+        placeholder="Пароль"
         v-model="password2"
         label="Повторите пароль"
       />
     </form>
 
-    <Button @click="send">регистрация</Button>
+    <Button @click="send">Регистрация</Button>
 
     <div class="switch-link">
       Уже есть аккаунт?
@@ -74,37 +74,38 @@ onUnmounted(() => {
   errorMessage.value = "";
 });
 
+const validate = () => {
+  if (password.value !== password2.value) {
+    errorMessage.value = "пароли не совпадают";
+    return {};
+  }
+  const formFields = z.object({
+    email: z.string().email({ message: "невалидный email" }),
+    name: z
+      .string()
+      .min(3, { message: "мин длина никнейма - 3" })
+      .max(50, { message: "макс длина никнейма - 50" }),
+    password: z
+      .string()
+      .min(8, { message: "мин длина пароля - 8" })
+      .max(50, { message: "макс длина пароля - 50" }),
+  });
+
+  try {
+    return {
+      data: formFields.parse({
+        email: email.value,
+        name: username.value,
+        password: password.value,
+      }),
+    };
+  } catch (err: any) {
+    return { error: err as z.ZodError };
+  }
+};
+
 const send = () => {
   errorMessage.value = "";
-  const validate = () => {
-    if (password.value !== password2.value) {
-      errorMessage.value = "пароли не совпадают";
-      return;
-    }
-    const formFields = z.object({
-      email: z.string().email({ message: "невалидный email" }),
-      name: z
-        .string()
-        .min(3, { message: "мин длина никнейма - 3" })
-        .max(50, { message: "макс длина никнейма - 50" }),
-      password: z
-        .string()
-        .min(8, { message: "мин длина пароля - 8" })
-        .max(50, { message: "макс длина пароля - 50" }),
-    });
-
-    try {
-      return {
-        data: formFields.parse({
-          email: email.value,
-          name: username.value,
-          password: password.value,
-        }),
-      };
-    } catch (err: any) {
-      return { error: err as z.ZodError };
-    }
-  };
 
   const { error: err, data: formFields } = validate();
 

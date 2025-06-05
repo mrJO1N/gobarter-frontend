@@ -9,16 +9,16 @@
     <form class="form-inputs" @submit="send" v-on:keyup.enter="send">
       <Input
         visibility-type="email"
-        placeholder="email"
+        placeholder="Е-mail"
         v-model="email"
-        label="email"
+        label="Е-mail"
       />
 
       <Input
         visibility-type="password"
-        placeholder="пароль"
+        placeholder="Пароль"
         v-model="password"
-        label="пароль"
+        label="Пароль"
       />
     </form>
 
@@ -56,28 +56,29 @@ onUnmounted(() => {
   errorMessage.value = "";
 });
 
+const validate = () => {
+  const formFields = z.object({
+    email: z.string().email({ message: "невалидный email" }),
+    password: z
+      .string()
+      .min(8, { message: "мин длина пароля - 8" })
+      .max(50, { message: "макс длина пароля - 50" }),
+  });
+
+  try {
+    return {
+      data: formFields.parse({
+        email: email.value,
+        password: password.value,
+      }),
+    };
+  } catch (err: any) {
+    return { error: err as z.ZodError };
+  }
+};
+
 const send = async () => {
   errorMessage.value = "";
-  const validate = () => {
-    const formFields = z.object({
-      email: z.string().email({ message: "невалидный email" }),
-      password: z
-        .string()
-        .min(8, { message: "мин длина пароля - 8" })
-        .max(50, { message: "макс длина пароля - 50" }),
-    });
-
-    try {
-      return {
-        data: formFields.parse({
-          email: email.value,
-          password: password.value,
-        }),
-      };
-    } catch (err: any) {
-      return { error: err as z.ZodError };
-    }
-  };
 
   const { error: err, data: formFields } = validate();
 
