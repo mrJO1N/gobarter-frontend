@@ -8,11 +8,21 @@ class OfferApi extends BaseApi {
     super();
     this.handleError = this.handleError.bind(this);
     this.create = this.create.bind(this);
+    this.getOne = this.getOne.bind(this);
   }
 
   async create(data: ICreateOfferPayload) {
     try {
       const response = await this.axiosInstance.post("/offers/new", data);
+      return response.data;
+    } catch (error) {
+      throw this.handleError(error);
+    }
+  }
+
+  async getOne(id: number) {
+    try {
+      const response = await this.axiosInstance.get(`/offers/${id}`);
       return response.data;
     } catch (error) {
       throw this.handleError(error);

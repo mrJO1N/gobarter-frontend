@@ -28,7 +28,7 @@ class AuthApi extends BaseApi {
   async login(payload: ILoginPayload) {
     try {
       const res = await this.axiosInstance.post<ITokesRes>(
-        "/user/login",
+        "/auth/login",
         payload
       );
       this.setTokens(res.data);
@@ -41,7 +41,7 @@ class AuthApi extends BaseApi {
   async register(data: IRegPayload) {
     try {
       const response = await this.axiosInstance.post<ITokesRes>(
-        "/user/register",
+        "/auth/register",
         data
       );
       this.setTokens(response.data);
@@ -53,12 +53,14 @@ class AuthApi extends BaseApi {
 
   async verify(data: IVerifyPayload) {
     try {
-      const response = await this.axiosInstance.post("/user/verify", data);
+      const response = await this.axiosInstance.post("/auth/verify", data);
       return response.data;
     } catch (error) {
       throw this.handleError(error);
     }
   }
+
+  // method GET refresh token includes in ../base.api.ts
 
   private setTokens(data: ITokesRes) {
     localStorage.setItem("refresh_token", data.refresh_token);

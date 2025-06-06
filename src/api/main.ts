@@ -10,5 +10,6 @@ export const api = {
   },
   offer: {
     create: wrapUseFetch(offerApi.create),
+    getOne: wrapUseFetch(offerApi.getOne),
   },
 };

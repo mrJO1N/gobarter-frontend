@@ -51,7 +51,7 @@ export abstract class BaseApi {
     const refreshToken = localStorage.getItem("refresh_token");
     let isGoodResponse = true;
     if (refreshToken) {
-      const response = await this.axiosInstance.post("/user/refresh", null, {
+      const response = await this.axiosInstance.post("/auth/refresh", null, {
         headers: {
           Authorization: `Bearer ${refreshToken}`,
         },
