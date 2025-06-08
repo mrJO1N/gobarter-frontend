@@ -21,7 +21,7 @@ class OfferApi extends BaseApi {
 
   async create(data: ICreateOfferPayload) {
     try {
-      const response = await this.axiosInstance.post("/offers/new", data);
+      const response = await this.axiosInstance.post("/offers/create", data);
       return response.data;
     } catch (error) {
       throw this.handleError(error);

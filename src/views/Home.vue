@@ -40,10 +40,9 @@ const loadMore = () => {
     onlyMy: false,
   });
 
-  watch(
-    data,
-    (newValue) => (offers.value = { ...offers.value, ...newValue.items })
-  );
+  watch(data, (newValue) => {
+    offers.value = [...offers.value, ...newValue.items];
+  });
   watch(apiError, (newValue: Error | string | null) => {
     errorMessage.value =
       (newValue as Error)?.message ?? (newValue as string) ?? "";

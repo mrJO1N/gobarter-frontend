@@ -6,10 +6,17 @@
     <div class="offer_container">
       <h2 class="title">{{ offer.title }}</h2>
 
-      <p class="need">Нужно: {{ offer.need }}</p>
-      <p class="offer">Даст: {{ offer.offer }}</p>
+      <p class="need">
+        <span class="template">Нужно:</span> <span>{{ offer.need }}</span>
+      </p>
+      <p class="offer">
+        <span class="template">Дам тебе:</span> <span>{{ offer.offer }}</span>
+      </p>
 
-      <p class="description">Описание: {{ offer.description }}</p>
+      <p class="description">
+        <span class="template">Описание: </span>
+        <span>{{ offer.description }}</span>
+      </p>
     </div>
   </div>
 </template>
@@ -53,11 +60,30 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+@use "@/const";
+
 .Offer-view {
   display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  height: 80vh;
+
   .offer_container {
-    .title {
+    * {
+      color: const.$accent-color;
+      span.template {
+        font-size: 1.2rem;
+      }
+      span:not(.template) {
+        // text-decoration: underline;
+      }
     }
+    .title {
+      font-size: 2.5rem;
+      border-bottom: 2.5px solid const.$accent-color;
+    }
+
     .need {
     }
     .offer {

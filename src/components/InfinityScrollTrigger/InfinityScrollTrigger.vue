@@ -15,9 +15,9 @@ interface IProps {
 const { loadMore } = defineProps<IProps>();
 
 const target = useTemplateRef("loadMore-trigger");
-const targetIsVisible = useElementVisibility(target);
+const isTargetVisible = useElementVisibility(target);
 
-watch(targetIsVisible, (newValue) => {
+watch(isTargetVisible, (newValue) => {
   if (newValue) {
     loadMore();
   }

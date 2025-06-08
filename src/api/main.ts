@@ -1,6 +1,7 @@
 import { wrapUseFetch } from "./hook";
 import { authApi } from "./routes/auth";
 import { offerApi } from "./routes/offer";
+import { userApi } from "./routes/user";
 
 export const api = {
   auth: {
@@ -12,5 +13,8 @@ export const api = {
     create: wrapUseFetch(offerApi.create),
     getOne: wrapUseFetch(offerApi.getOne),
     search: wrapUseFetch(offerApi.search),
+  },
+  user: {
+    getMe: wrapUseFetch(userApi.getMe),
   },
 };
