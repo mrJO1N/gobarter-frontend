@@ -1,7 +1,7 @@
 <template>
   <div class="Modal" v-show="isOpened">
-    <div class="background" @click="closeModal">
-      <div class="content-container" @click.stop="">
+    <div class="background" @mousedown="closeModal">
+      <div class="content-container" @click.stop="" @mousedown.stop>
         <button class="close-btn" @click="closeModal">X</button>
         <div class="content">
           <component
@@ -30,8 +30,8 @@ import CreatePost from "./views/CreatePost";
 interface IProps {}
 defineProps<IProps>();
 
-let isOpened = ref(false);
-let viewType = ref<TModalViewType>("login");
+const isOpened = ref(false);
+const viewType = ref<TModalViewType>("login");
 let dataToModalContent: any = {};
 
 const currentComponent = computed(() => {
@@ -46,7 +46,7 @@ const currentComponent = computed(() => {
       return CreatePost;
 
     case "empty modal":
-      return "";
+      return;
   }
 });
 

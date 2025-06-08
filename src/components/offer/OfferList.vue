@@ -13,11 +13,11 @@
 </template>
 
 <script lang="ts" setup>
-import type { IOffer } from "@/utils/types";
+import type { IGettedOffer } from "@/utils/types";
 import OfferListItem from "@comp/Offer/OfferListItem.vue";
 
 interface IProps {
-  items: IOffer[];
+  items: IGettedOffer[];
 }
 const { items } = defineProps<IProps>();
 </script>

@@ -1,68 +1,55 @@
 <template>
-  <div>
-    <offerList :items="offers" />
+  <div class="Home">
+    <Alert visibility-type="error" v-if="errorMessage">{{
+      errorMessage
+    }}</Alert>
+    <Loader v-if="isLoading" />
+
+    <InfinityScrollTrigger :loadMore>
+      <OfferList :items="offers" />
+    </InfinityScrollTrigger>
   </div>
 </template>
 
 <script lang="ts" setup>
-import type { IOffer } from "@/utils/types";
-import offerList from "@comp/Offer";
+import { ref, watch } from "vue";
+
+import type { IGettedOffer } from "@/utils/types";
+import InfinityScrollTrigger from "@comp/InfinityScrollTrigger";
+import OfferList from "@comp/Offer/";
+import { api } from "@/api/main";
+import Alert from "@ui/Alert";
+import Loader from "@ui/Loader";
 
 interface IProps {}
 defineProps<IProps>();
 
-let offers: IOffer[] = [];
+const offers = ref<IGettedOffer[]>([]);
+const pageId = ref(1);
+const isLoading = ref(false);
+const errorMessage = ref("");
 
-offers = [
-  {
-    id: 1,
-    title: "title",
-    description:
-      "description description description description description description description description description ",
-    need: "need",
-    offer: "offer",
-  },
-  {
-    id: 2,
-    title: "title",
-    description:
-      "description description description description description description description description description ",
-    need: "need",
-    offer: "offer",
-  },
-  {
-    id: 3,
-    title: "title",
-    description:
-      "description description description description description description description description description ",
-    need: "need",
-    offer: "offer",
-  },
-  {
-    id: 4,
-    title: "title",
-    description:
-      "description description description description description description description description description ",
-    need: "need",
-    offer: "offer",
-  },
-  {
-    id: 5,
-    title: "title",
-    description:
-      "description description description description description description description description description ",
-    need: "need",
-    offer: "offer",
-  },
-  {
-    id: 6,
-    title: "title",
-    description:
-      "description description description description description description description description description ",
-    need: "need",
-    offer: "offer",
-  },
-];
+const loadMore = () => {
+  isLoading.value = true;
+  const {
+    data,
+    error: apiError,
+    isLoading: apiIsLoading,
+  } = api.offer.search({
+    page: pageId.value,
+    onlyMy: false,
+  });
+
+  watch(
+    data,
+    (newValue) => (offers.value = { ...offers.value, ...newValue.items })
+  );
+  watch(apiError, (newValue: Error | string | null) => {
+    errorMessage.value =
+      (newValue as Error)?.message ?? (newValue as string) ?? "";
+  });
+  watch(apiIsLoading, (newValue) => (isLoading.value = newValue));
+};
 </script>
 
 <style lang="sass" scoped></style>

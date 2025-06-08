@@ -19,7 +19,6 @@
       <span class="link" @click="openModal('reg')">Регистрация</span>
     </div>
   </header>
-  <div class="header"></div>
 </template>
 
 <script lang="ts" setup>
