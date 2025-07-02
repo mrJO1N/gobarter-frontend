@@ -1,6 +1,8 @@
 # what is it?
 
 frontend for site gobarter.ru
+writed with vue3
+I am a student and it is just my homework
 
 ### install
 

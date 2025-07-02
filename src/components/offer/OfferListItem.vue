@@ -3,9 +3,7 @@
     <div class="OfferListItem">
       <h3 class="title">{{ item.title }}</h3>
       <p class="need">Нужно: {{ cropStr(item.need) }}</p>
-      <p class="offer">Готов предложить: {{ cropStr(item.offer) }}</p>
-
-      <p class="description">Описание: {{ cropStr(item.description) }}</p>
+      <p class="offer">Дам тебе: {{ cropStr(item.offer) }}</p>
 
       <div class="arrow-right_container">
         <img src="@/assets/icons/arrow-right.svg" class="arrow-right" alt="" />
@@ -35,14 +33,28 @@ const cropStr = (str: string) => {
 
 <style lang="scss" scoped>
 @use "@/const";
+@use "sass:color";
 
 .OfferListItem {
-  border: 3px solid const.$accent-color;
+  border: 3px solid const.$main-color;
   border-radius: 10px;
-  color: const.$accent-color;
+  color: const.$main-color;
+  background-color: color.mix(const.$main-color, const.$bg-color, 10%);
+
+  height: 30vh;
+
+  .title {
+    text-align: center;
+    font-size: 2rem;
+    border-bottom: 3px solid const.$main-color;
+  }
+
   .need,
-  .offer {
+  .offer,
+  .description {
     margin-bottom: 0;
+    margin-left: 5px;
+    font-size: 1.2rem;
   }
 
   .arrow-right_container {
@@ -51,6 +63,7 @@ const cropStr = (str: string) => {
 
     .arrow-right {
       width: 25px;
+      margin-right: 10px;
     }
   }
 }

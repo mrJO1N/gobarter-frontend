@@ -17,7 +17,17 @@ import type { IGettedOffer } from "@/utils/types";
 import OfferListItem from "@comp/Offer/OfferListItem.vue";
 
 interface IProps {
-  items: IGettedOffer[];
+  items: { [key: number]: IGettedOffer };
 }
 const { items } = defineProps<IProps>();
 </script>
+
+<style lang="scss" scoped>
+.container {
+  margin-top: 75px;
+
+  a {
+    text-decoration: none !important;
+  }
+}
+</style>

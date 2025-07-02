@@ -61,27 +61,40 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 @use "@/const";
+@use "sass:color";
 
 .Offer-view {
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: center;
-  height: 80vh;
+  position: fixed;
+  z-index: -1;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 
   .offer_container {
+    border-right: 2px solid const.$main-color;
+    border-left: 2px solid const.$main-color;
+    height: 100%;
+    padding: 0 10vw;
+
+    background-color: color.mix(const.$main-color, const.$bg-color, 10%);
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
     * {
-      color: const.$accent-color;
+      color: const.$main-color;
       span.template {
         font-size: 1.2rem;
-      }
-      span:not(.template) {
-        // text-decoration: underline;
       }
     }
     .title {
       font-size: 2.5rem;
-      border-bottom: 2.5px solid const.$accent-color;
+      border-bottom: 2.5px solid const.$main-color;
     }
 
     .need {
